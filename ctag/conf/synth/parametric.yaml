@@ -1,0 +1,8 @@
+name: parametric
+synth:
+    _target_: synthax.synth.ParametricSynth
+    config: ${synthconfig.config}
+    sine: 2
+    square_saw: 2
+    fm_sine: 2
+    fm_square_saw: 2

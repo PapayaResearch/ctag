@@ -1,0 +1,67 @@
+# @package _global_
+hydra:
+  sweeper:
+    ax_config:
+      max_trials: 10
+      params:
+        strategy.algorithm.popsize:
+          type: range
+          bounds: [10, 100]
+        strategy.algorithm.elite_ratio:
+          type: range
+          bounds: [0.0, 1.0]
+        strategy.algorithm.mean_decay:
+          type: range
+          bounds: [0.0, 1.0]
+        # strategy.evoparams.mu_eff:
+        #   type: range
+        #   bounds: [0.0, 1.0]
+        # strategy.evoparams.c_1:
+        #   type: range
+        #   bounds: [0.0, 1.0]
+        # strategy.evoparams.c_mu:
+        #   type: range
+        #   bounds: [0.0, 1.0]
+        # strategy.evoparams.c_sigma:
+        #   type: range
+        #   bounds: [0.0, 1.0]
+        # strategy.evoparams.d_sigma:
+        #   type: range
+        #   bounds: [0.0, 1.0]
+        # strategy.evoparams.c_c:
+        #   type: range
+        #   bounds: [0.0, 1.0]
+        # strategy.evoparams.chi_n:
+        #   type: range
+        #   bounds: [0.0, 1.0]
+        strategy.evoparams.c_m:
+          type: range
+          bounds: [0.0, 1.0]
+        strategy.evoparams.sigma_init:
+          type: range
+          bounds: [0.0, 1.0]
+
+strategy:
+  name: Sep_CMA_ES
+  algorithm:
+    _target_: evosax.strategies.Sep_CMA_ES
+    popsize: ${general.popsize}
+    num_dims: null
+    pholder_params: null
+    elite_ratio: 0.5
+    mean_decay: 0.0
+    n_devices: null
+  evoparams:
+    # mu_eff: float
+    # c_1: float
+    # c_mu: float
+    # c_sigma: float
+    # d_sigma: float
+    # c_c: float
+    # chi_n: float
+    c_m: 1.0
+    sigma_init: 0.065
+    init_min: 0.0
+    init_max: 1.0
+    clip_min: 0.0
+    clip_max: 1.0

@@ -1,0 +1,39 @@
+# @package _global_
+hydra:
+  sweeper:
+    ax_config:
+      max_trials: 10
+      params:
+        strategy.algorithm.popsize:
+          type: range
+          bounds: [10, 100]
+        strategy.algorithm.elite_ratio:
+          type: range
+          bounds: [0.0, 1.0]
+        strategy.evoparams.cross_over_rate:
+          type: range
+          bounds: [0.0, 1.0]
+        strategy.evoparams.sigma_init:
+          type: range
+          bounds: [0.0, 1.0]
+        strategy.evoparams.sigma_ratio:
+          type: range
+          bounds: [0.0, 1.0]
+
+strategy:
+  name: MR15_GA
+  algorithm:
+    _target_: evosax.strategies.MR15_GA
+    popsize: ${general.popsize}
+    num_dims: null
+    pholder_params: null
+    elite_ratio: 0.0
+    n_devices: null
+  evoparams:
+    cross_over_rate: 0.0
+    sigma_init: 0.07
+    sigma_ratio: 0.15
+    init_min: 0.0
+    init_max: 1.0
+    clip_min: 0.0
+    clip_max: 1.0

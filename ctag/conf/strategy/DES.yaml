@@ -1,0 +1,43 @@
+# @package _global_
+hydra:
+  sweeper:
+    ax_config:
+      max_trials: 50
+      params:
+        strategy.algorithm.popsize:
+          type: range
+          bounds: [10, 100]
+        strategy.algorithm.mean_decay:
+          type: range
+          bounds: [0.0, 1.0]
+        strategy.evoparams.temperature:
+          type: range
+          bounds: [10.0, 30.0]
+        strategy.evoparams.lrate_sigma:
+          type: range
+          bounds: [0.0, 1.0]
+        strategy.evoparams.lrate_mean:
+          type: range
+          bounds: [0.0, 1.0]
+        strategy.evoparams.sigma_init:
+          type: range
+          bounds: [0.0, 1.0]
+
+strategy:
+  name: DES
+  algorithm:
+    _target_: evosax.strategies.DES
+    popsize: ${general.popsize}
+    num_dims: null
+    pholder_params: null
+    mean_decay: 0.0
+    n_devices: null
+  evoparams:
+    temperature: 11.47
+    lrate_sigma: 0.14
+    lrate_mean: 0.75
+    sigma_init: 0.18
+    init_min: 0.0
+    init_max: 1.0
+    clip_min: 0.0
+    clip_max: 1.0

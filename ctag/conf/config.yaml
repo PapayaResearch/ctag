@@ -1,0 +1,73 @@
+##################
+# Defaults
+##################
+
+defaults:
+    # We use the "audioset-best" CLAP model by default (based on early experiments)
+    - model: clap/audioset-best
+    # DES seems to give good performance (based on early experiments)
+    - strategy: DES
+    # A simple synth config (based on early experiments)
+    - synthconfig: default
+    # We use "voice" synth by default (based on early experiments)
+    - synth: voice
+    # Sweeper to optimize hyperparameters
+    - override hydra/sweeper: ax
+
+#######################
+# General Settings
+#######################
+
+general:
+    # Path to file with text prompts
+    prompts: ${hydra:runtime.cwd}/data/esc50-sounds.txt
+    # Path to model checkpoints
+    ckpt_path: ${hydra:runtime.cwd}/checkpoints/${model.ckpt}
+    # Duration of output audio in seconds
+    duration: 3
+    # Number of iterations to run the optimization for
+    iter: 300
+    # Population size
+    popsize: 42
+
+#######################
+# Logging Settings
+#######################
+
+logging:
+    # Whether to use Tensorboard
+    use_tensorboard: false
+    # Directory for writing logs (for Tensorboard)
+    log_dir: ${hydra:runtime.cwd}/logs
+    # Directory for writing results (for audio and parameters)
+    results_dir: ${hydra:runtime.cwd}/results
+    # Whether to write audio
+    write_audio: true
+    # Whether to log parameters as embeddings (for Tensorboard)
+    log_embeddings: false
+    # Log frequency (in iterations)
+    logevery: 10
+    # Verbose logging
+    verbose: false
+
+
+#######################
+# Experiment Settings
+#######################
+
+experiment:
+    # Directory for writing experiments
+    experiment_dir: ${hydra:runtime.cwd}/experiments
+    # How many runs for each prompt
+    n_runs: 1
+
+
+######################
+# System Settings
+######################
+
+system:
+    # Random seed for reproducibility
+    seed: 42
+    # Device to run process on. Options: ["cpu", "cuda"]
+    device: cuda

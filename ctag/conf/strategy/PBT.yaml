@@ -1,0 +1,31 @@
+# @package _global_
+hydra:
+  sweeper:
+    ax_config:
+      max_trials: 10
+      params:
+        strategy.algorithm.popsize:
+          type: range
+          bounds: [10, 100]
+        strategy.evoparams.noise_scale:
+          type: range
+          bounds: [0.0, 1.0]
+        strategy.evoparams.truncation_selection:
+          type: range
+          bounds: [0.0, 1.0]
+
+strategy:
+  name: PBT
+  algorithm:
+    _target_: evosax.strategies.PBT
+    popsize: ${general.popsize}
+    num_dims: null
+    pholder_params: null
+    n_devices: null
+  evoparams:
+    noise_scale: 0.1
+    truncation_selection: 0.2
+    init_min: 0.0
+    init_max: 1.0
+    clip_min: 0.0
+    clip_max: 1.0

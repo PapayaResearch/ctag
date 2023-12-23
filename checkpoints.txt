@@ -1,0 +1,7 @@
+https://huggingface.co/lukewys/laion_clap/resolve/main/630k-audioset-best.pt
+https://huggingface.co/lukewys/laion_clap/resolve/main/630k-audioset-fusion-best.pt
+https://huggingface.co/lukewys/laion_clap/resolve/main/630k-best.pt
+https://huggingface.co/lukewys/laion_clap/resolve/main/630k-fusion-best.pt
+https://huggingface.co/lukewys/laion_clap/resolve/main/music_audioset_epoch_15_esc_90.14.pt
+https://huggingface.co/lukewys/laion_clap/resolve/main/music_speech_audioset_epoch_15_esc_89.98.pt
+https://huggingface.co/lukewys/laion_clap/resolve/main/music_speech_epoch_15_esc_89.25.pt

@@ -1,0 +1,54 @@
+# @package _global_
+hydra:
+  sweeper:
+    ax_config:
+      max_trials: 10
+      params:
+        strategy.algorithm.popsize:
+          type: range
+          bounds: [10, 100]
+        strategy.algorithm.mean_decay:
+          type: range
+          bounds: [0.0, 1.0]
+        strategy.evoparams.lrate_mean:
+          type: range
+          bounds: [0.0, 1.0]
+        strategy.evoparams.lrate_sigma_init:
+          type: range
+          bounds: [0.0, 1.0]
+        strategy.evoparams.lrate_B:
+          type: range
+          bounds: [0.0, 1.0]
+        strategy.evoparams.sigma_init:
+          type: range
+          bounds: [0.0, 1.0]
+        strategy.evoparams.use_adasam:
+          type: bool
+        strategy.evoparams.rho:
+          type: range
+          bounds: [0.0, 1.0]
+        strategy.evoparams.c_prime:
+          type: range
+          bounds: [0.0, 1.0]
+
+strategy:
+  name: xNES
+  algorithm:
+    _target_: evosax.strategies.xNES
+    popsize: ${general.popsize}
+    num_dims: null
+    pholder_params: null
+    mean_decay: 0.0
+    n_devices: null
+  evoparams:
+    lrate_mean: 1.0
+    lrate_sigma_init: 0.1
+    lrate_B: 0.1
+    sigma_init: 1.0
+    use_adasam: False
+    rho: 0.5
+    c_prime: 0.1
+    init_min: 0.0
+    init_max: 1.0
+    clip_min: 0.0
+    clip_max: 1.0

@@ -1,0 +1,4 @@
+name: voice
+synth:
+    _target_: synthax.synth.Voice
+    config: ${synthconfig.config}

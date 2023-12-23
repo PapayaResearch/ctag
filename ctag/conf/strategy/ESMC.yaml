@@ -1,0 +1,60 @@
+# @package _global_
+hydra:
+  sweeper:
+    ax_config:
+      max_trials: 10
+      params:
+        strategy.algorithm.popsize:
+          type: range
+          bounds: [10, 100]
+        strategy.algorithm.lrate_init:
+          type: range
+          bounds: [0.0, 1.0]
+        strategy.algorithm.lrate_decay:
+          type: range
+          bounds: [0.0, 1.0]
+        strategy.algorithm.lrate_limit:
+          type: range
+          bounds: [0.0, 1.0]
+        strategy.algorithm.mean_decay:
+          type: range
+          bounds: [0.0, 1.0]
+        strategy.evoparams.sigma_init:
+          type: range
+          bounds: [0.0, 1.0]
+        strategy.evoparams.sigma_decay:
+          type: range
+          bounds: [0.0, 1.0]
+        strategy.evoparams.sigma_limit:
+          type: range
+          bounds: [0.0, 1.0]
+        strategy.evoparams.sigma_lrate:
+          type: range
+          bounds: [0.0, 1.0]
+        strategy.evoparams.sigma_max_change:
+          type: range
+          bounds: [0.0, 1.0]
+
+strategy:
+  name: ESMC
+  algorithm:
+    _target_: evosax.strategies.ESMC
+    popsize: ${general.popsize}
+    num_dims: null
+    pholder_params: null
+    opt_name: adam
+    lrate_init: 0.05
+    lrate_decay: 1.0
+    lrate_limit: 0.001
+    mean_decay: 0.0
+    n_devices: null
+  evoparams:
+    sigma_init: 0.03
+    sigma_decay: 0.999
+    sigma_limit: 0.01
+    sigma_lrate: 0.2
+    sigma_max_change: 0.2
+    init_min: 0.0
+    init_max: 1.0
+    clip_min: 0.0
+    clip_max: 1.0

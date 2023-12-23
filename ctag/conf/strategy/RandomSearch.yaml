@@ -1,0 +1,25 @@
+# @package _global_
+hydra:
+  sweeper:
+    ax_config:
+      max_trials: 10
+      params:
+        strategy.algorithm.popsize:
+          type: range
+          bounds: [10, 100]
+
+strategy:
+  name: RandomSearch
+  algorithm:
+    _target_: evosax.strategies.RandomSearch
+    popsize: ${general.popsize}
+    num_dims: null
+    pholder_params: null
+    n_devices: null
+  evoparams:
+    init_min: 0.0
+    init_max: 1.0
+    range_min: 0.0
+    range_max: 1.0
+    clip_min: 0.0
+    clip_max: 1.0

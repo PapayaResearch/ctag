@@ -1,0 +1,54 @@
+# @package _global_
+hydra:
+  sweeper:
+    ax_config:
+      max_trials: 10
+      params:
+        strategy.algorithm.popsize:
+          type: range
+          bounds: [10, 100]
+        strategy.algorithm.elite_ratio:
+          type: range
+          bounds: [0.0, 1.0]
+        strategy.evoparams.temp_init:
+          type: range
+          bounds: [0.0, 1.0]
+        strategy.evoparams.temp_limit:
+          type: range
+          bounds: [0.0, 1.0]
+        strategy.evoparams.temp_decay:
+          type: range
+          bounds: [0.0, 1.0]
+        strategy.evoparams.boltzmann_const:
+          type: range
+          bounds: [0.0, 1.0]
+        strategy.evoparams.sigma_init:
+          type: range
+          bounds: [0.0, 1.0]
+        strategy.evoparams.sigma_limit:
+          type: range
+          bounds: [0.0, 1.0]
+        strategy.evoparams.sigma_decay:
+          type: range
+          bounds: [0.0, 1.0]
+
+strategy:
+  name: SimAnneal
+  algorithm:
+    _target_: evosax.strategies.SimAnneal
+    popsize: ${general.popsize}
+    num_dims: null
+    pholder_params: null
+    n_devices: null
+  evoparams:
+    temp_init: 1.0
+    temp_limit: 0.1
+    temp_decay: 0.999
+    boltzmann_const: 5.0
+    sigma_init: 0.05
+    sigma_limit: 0.001
+    sigma_decay: 0.999
+    init_min: 0.0
+    init_max: 1.0
+    clip_min: 0.0
+    clip_max: 1.0

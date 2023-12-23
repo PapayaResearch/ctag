@@ -1,0 +1,18 @@
+#######################
+# Auto-configure the CLAP module
+#######################
+
+name: clap
+ckpt: music_speech_audioset_epoch_15_esc_89.98.pt
+model:
+    _target_: embedding.CLAPModel
+    # Enable fusion if "fusion" is present in the checkpoint
+    enable_fusion: false
+    # Set the audio model based on the presence of "630k" in the checkpoint
+    amodel: HTSAT-base
+    # Set the text model. Options: ["roberta"]
+    tmodel: roberta
+    # Checkpoint path
+    ckpt_path: ${general.ckpt_path}
+    # Model device
+    device: ${system.device}

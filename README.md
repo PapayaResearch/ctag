@@ -31,27 +31,29 @@ mkdir -p ctag/checkpoints && wget -i checkpoints.txt -P ctag/checkpoints
 ```
 
 ## `ctag/`
-Generating sounds is very simple! By default, `ctag` runs on GPU, but you can change that with a flag
+Generating sounds is very simple! By default, `ctag` runs on CPU, but you can change that with a flag
 
 ```bash
 cd ctag
-python -u text2synth.py system.device=cpu
+python text2synth.py system.device=cuda
 ```
 
 It will generate directories containing logs, results, and experiments. The final version of each sound can be found in `experiments`, and `results` contains all the iterations.
 
-By default, this uses the prompts in `ctag/data/esc50-sounds.txt`. To change this, point this property to a different file or pass a string with multiple semicolon-separated prompts. You can also overrwide this from the command line:
+By default, this uses the prompts in `ctag/data/esc50-sounds.txt`. To change this, point this property to a different file or pass a string with multiple semicolon-separated prompts. You can also override this from the command line:
 
 ```bash
 # From a prompts.txt file
-python -u text2synth.py system.device=cpu general.prompts=/path/to/prompts.txt
+python text2synth.py general.prompts=/path/to/prompts.txt
 
 # From strings
-python -u text2synth.py system.device=cpu general.prompts="a bird tweeting;walking on leaves"
+python text2synth.py general.prompts="a bird tweeting;walking on leaves"
 ```
 
+Note that currently, you must supply $\geq$ 2 prompts! This is due to an [issue](https://github.com/LAION-AI/CLAP/pull/105) in the version of CLAP on PyPI.
+
 ## Configuration
-We use [Hydra](https://hydra.cc/) to configure `ctag`. The configuration can be found in `ctag/conf/config.yaml`, with specific sub-configs in sub-directories of `ctag/conf/`>
+We use [Hydra](https://hydra.cc/) to configure `ctag`. The configuration can be found in `ctag/conf/config.yaml`, with specific sub-configs in sub-directories of `ctag/conf/`.
 
 The configs define all the parameters (e.g. strategy algorithm, synthesizer, iterations, prompts). By default, these are the ones used for the paper. You can choose the `model` according to the downloaded CLAP `checkpoints`, an `evosax` strategy available in the configuration, a `synth` architecture and a `synthconfig`. This is also where you choose the `prompts`, the `duration` of the sounds, the number of `iterations`, the `popsize` (population size), the number of independent runs per prompt `n_runs` (not to confuse with the iterations), and the initial random `seed`.
 

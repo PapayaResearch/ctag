@@ -70,4 +70,4 @@ system:
     # Random seed for reproducibility
     seed: 42
     # Device to run process on. Options: ["cpu", "cuda"]
-    device: cuda
+    device: cpu

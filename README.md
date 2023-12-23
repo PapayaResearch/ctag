@@ -1,15 +1,15 @@
 # Creative Text-to-Audio Generation via Synthesizer Programming (CTAG)
-![Python version](https://img.shields.io/badge/python-3.9-blue)
-![Package version](https://img.shields.io/badge/version-0.1.0-green)
-![GitHub license](https://img.shields.io/github/license/PapayaResearch/ctag)
-[![Paper](https://img.shields.io/badge/paper-NeurIPS-red)](https://mlforaudioworkshop.com/CreativeTextToAudio.pdf)
-[![Website](https://img.shields.io/badge/website-CTAG-red)](https://ctag.media.mit.edu/)
 
 <a href="https://github.com/PapayaResearch/ctag/blob/main/media/logo.png"><img src="https://github.com/PapayaResearch/ctag/blob/main/media/logo.png?raw=true" width="200" align="right" /></a>
 
-Sound designers have long harnessed the power of abstraction to distill and highlight the semantic essence of real-world auditory phenomena, akin to how simple sketches can vividly convey visual concepts. However, current neural audio synthesis methods lean heavily towards capturing acoustic realism. We introduce `ctag`, a novel method centered on meaningful abstraction. Our approach takes a text prompt and iteratively refines the parameters of a virtual modular synthesizer ([SynthAX](https://github.com/PapayaResearch/synthax)) to produce sounds with high semantic alignment, as predicted by a pretrained audio-language model.
+![Python version](https://img.shields.io/badge/python-3.9-blue)
+![Package version](https://img.shields.io/badge/version-0.1.0-green)
+![GitHub license](https://img.shields.io/github/license/PapayaResearch/ctag)
+[![Website](https://img.shields.io/badge/website-CTAG-red)](https://ctag.media.mit.edu/)
 
-The code to obtain the results from the paper can be found in a different [repository](https://github.com/PapayaResearch/ctag-experiments), and all the sounds we used are on the [website](https://ctag.media.mit.edu/)!
+Code for the paper **[Creative Text-to-Audio Generation via Synthesizer Programming](https://mlforaudioworkshop.com/CreativeTextToAudio.pdf)**.
+
+You can hear many examples on the [website](https://ctag.media.mit.edu/). CTAG depends on [SynthAX](https://github.com/PapayaResearch/synthax), a fast modular synthesizer in JAX. The code to obtain the results from the paper will be found in a different [repository](https://github.com/PapayaResearch/ctag-experiments) (coming soon).
 
 ## Installation
 
@@ -20,20 +20,17 @@ conda env create -f environment.yml
 conda activate ctag
 ```
 
-By default, we install JAX for CPU, and you can find more details in the [JAX documentation](https://github.com/google/jax#installation) to use JAX on your accelerators.
+By default, we install JAX for CPU. You can find more details in the [JAX documentation](https://github.com/google/jax#installation) on using JAX with your accelerators.
 
-### Checkpoints
+### CLAP Checkpoints
 
-You also have to download the [checkpoints](https://huggingface.co/lukewys/laion_clap/tree/main) for [LAION-CLAP](https://github.com/LAION-AI/CLAP) as follows
+You also have to download the [checkpoints](https://huggingface.co/lukewys/laion_clap/tree/main) for [LAION-CLAP](https://github.com/LAION-AI/CLAP) as follows:
 
 ```bash
 mkdir -p ctag/checkpoints && wget -i checkpoints.txt -P ctag/checkpoints
 ```
 
-## `ctag`
-
-We use [Hydra](https://hydra.cc/) to configure `ctag`. The configuration can be found in `ctag/conf/` and `ctag/conf/config.yaml` defines all the parameters (e.g. strategy algorithm, synthesizer, iterations, prompts), which by default are the ones used for the paper. You can choose the `model` according to the downloaded CLAP `checkpoints`, a strategy available in the configuration, a `synth` architecture and a `synthconfig`. This is also where you choose the `prompts`, the `duration` of the sounds, the number of `iterations`, the `popsize`, the number of sounds generated per prompt `n_runs` (not to confuse with the iterations), and the initial random `seed`.
-
+## `ctag/`
 Generating sounds is very simple! By default, `ctag` runs on GPU, but you can change that with a flag
 
 ```bash
@@ -42,6 +39,21 @@ python -u text2synth.py system.device=cpu
 ```
 
 It will generate directories containing logs, results, and experiments. The final version of each sound can be found in `experiments`, and `results` contains all the iterations.
+
+By default, this uses the prompts in `ctag/data/esc50-sounds.txt`. To change this, point this property to a different file or pass a string with multiple semicolon-separated prompts. You can also overrwide this from the command line:
+
+```bash
+# From a prompts.txt file
+python -u text2synth.py system.device=cpu general.prompts=/path/to/prompts.txt
+
+# From strings
+python -u text2synth.py system.device=cpu general.prompts="a bird tweeting;walking on leaves"
+```
+
+## Configuration
+We use [Hydra](https://hydra.cc/) to configure `ctag`. The configuration can be found in `ctag/conf/config.yaml`, with specific sub-configs in sub-directories of `ctag/conf/`>
+
+The configs define all the parameters (e.g. strategy algorithm, synthesizer, iterations, prompts). By default, these are the ones used for the paper. You can choose the `model` according to the downloaded CLAP `checkpoints`, an `evosax` strategy available in the configuration, a `synth` architecture and a `synthconfig`. This is also where you choose the `prompts`, the `duration` of the sounds, the number of `iterations`, the `popsize` (population size), the number of independent runs per prompt `n_runs` (not to confuse with the iterations), and the initial random `seed`.
 
 ### Hyperparameters
 
@@ -56,3 +68,29 @@ Then you can run the sweeping as follows
 ```bash
 python -u text2synth.py system.device=cpu --multirun
 ```
+
+## Acknowledgements & Citing
+
+If you use `ctag` in your research, please cite the following paper:
+```bibtex
+@article{ctag2023,
+  title={Creative Text-to-Audio Generation via Synthesizer Programming},
+  author={Singh*, Nikhil and Cherep*, Manuel and Shand, Jessica},
+  journal={NeurIPS Machine Learning for Audio Workshop},
+  year={2023}
+}
+```
+
+For the synthesizer component itself, please cite [SynthAX](https://github.com/PapayaResearch/synthax):
+```bibtex
+@conference{cherep2023synthax,
+  title = {SynthAX: A Fast Modular Synthesizer in JAX},
+  author = {Cherep, Manuel and Singh, Nikhil},
+  booktitle = {Audio Engineering Society Convention 155},
+  month = {May},
+  year = {2023},
+  url = {http://www.aes.org/e-lib/browse.cfm?elib=22261}
+}
+```
+
+We acknowledge partial financial support by Fulbright Spain. We also acknowledge the MIT SuperCloud and Lincoln Laboratory Supercomputing Center for providing HPC resources that have contributed to the research results reported within these papers.

@@ -80,8 +80,6 @@ class CLAPModel(BaseModel):
             state_dict = {k[7:]: v for k, v in state_dict.items()}
 
         self.model.model.load_state_dict(state_dict)
-        if self.compile:
-            self.model = torch.compile(self.model)
 
     def embed_audio(self, audio: torch.Tensor, sample_rate: int) -> torch.Tensor:
         return self.model.get_audio_embedding_from_data(audio, use_tensor=True)

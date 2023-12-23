@@ -31,7 +31,7 @@ mkdir -p ctag/checkpoints && wget -i checkpoints.txt -P ctag/checkpoints
 ```
 
 ## `ctag/`
-Generating sounds is very simple! By default, `ctag` runs on CPU, but you can change that with a flag
+Generating sounds is very simple! By default, `ctag` runs on CPU, but you can change that with a config value
 
 ```bash
 cd ctag
@@ -40,7 +40,7 @@ python text2synth.py system.device=cuda
 
 It will generate directories containing logs, results, and experiments. The final version of each sound can be found in `experiments`, and `results` contains all the iterations.
 
-By default, this uses the prompts in `ctag/data/esc50-sounds.txt`. To change this, point this property to a different file or pass a string with multiple semicolon-separated prompts. You can also override this from the command line:
+By default, this uses the prompts in `ctag/data/esc50-sounds.txt`. To change this, point this field to a different file or pass a string with multiple semicolon-separated prompts. You can also override this from the command line:
 
 ```bash
 # From a prompts.txt file
@@ -59,7 +59,7 @@ The configs define all the parameters (e.g. strategy algorithm, synthesizer, ite
 
 ### Hyperparameters
 
-We use AX to sweep the hyperparameters of an algorithm with just a flag. First, you need to update the version of `ax-platform` because of some dependency issues with other packages
+We use AX to sweep the hyperparameters of an algorithm with just a config field. First, you need to update the version of `ax-platform` because of some dependency issues with other packages
 
 ```bash
 pip install ax-platform==0.2.8
@@ -68,7 +68,7 @@ pip install ax-platform==0.2.8
 Then you can run the sweeping as follows
 
 ```bash
-python -u text2synth.py system.device=cpu --multirun
+python text2synth.py --multirun
 ```
 
 ## Acknowledgements & Citing

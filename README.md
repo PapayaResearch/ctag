@@ -3,13 +3,13 @@
 ![Package version](https://img.shields.io/badge/version-0.1.0-green)
 ![GitHub license](https://img.shields.io/github/license/PapayaResearch/ctag)
 [![Paper](https://img.shields.io/badge/paper-NeurIPS-ML4Audio)](https://mlforaudioworkshop.com/CreativeTextToAudio.pdf)
-[![Website](https://img.shields.io/badge/website-ctag.media.mit.edu)](https://ctag.media.mit.edu/)
+[![Website](https://img.shields.io/badge/website-CTAG)](https://ctag.media.mit.edu/)
 
 <a href="https://github.com/PapayaResearch/ctag/blob/main/media/logo.png"><img src="https://github.com/PapayaResearch/ctag/blob/main/media/logo.png?raw=true" width="200" align="right" /></a>
 
 Sound designers have long harnessed the power of abstraction to distill and highlight the semantic essence of real-world auditory phenomena, akin to how simple sketches can vividly convey visual concepts. However, current neural audio synthesis methods lean heavily towards capturing acoustic realism. We introduce `ctag`, a novel method centered on meaningful abstraction. Our approach takes a text prompt and iteratively refines the parameters of a virtual modular synthesizer ([SynthAX](https://github.com/PapayaResearch/synthax)) to produce sounds with high semantic alignment, as predicted by a pretrained audio-language model.
 
-The code to obtain the results from the paper can be found in a different [repository](https://github.com/PapayaResearch/ctag-experiments).
+The code to obtain the results from the paper can be found in a different [repository](https://github.com/PapayaResearch/ctag-experiments), and all the sounds are on the website!
 
 ## Installation
 

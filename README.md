@@ -47,7 +47,7 @@ By default, this uses the prompts in `ctag/data/esc50-sounds.txt`. To change thi
 python text2synth.py general.prompts=/path/to/prompts.txt
 
 # From strings
-python text2synth.py general.prompts="a bird tweeting;walking on leaves"
+python text2synth.py general.prompts='"a bird tweeting;walking on leaves"'
 ```
 
 Note that currently, you must supply $\geq$ 2 prompts! This is due to an [issue](https://github.com/LAION-AI/CLAP/pull/105) in the version of CLAP on PyPI.

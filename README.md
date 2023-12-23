@@ -2,7 +2,7 @@
 ![Python version](https://img.shields.io/badge/python-3.9-blue)
 ![Package version](https://img.shields.io/badge/version-0.1.0-green)
 ![GitHub license](https://img.shields.io/github/license/PapayaResearch/ctag)
-[![Paper](https://img.shields.io/badge/paper-NeurIPS ML4Audio)](https://mlforaudioworkshop.com/CreativeTextToAudio.pdf)
+[![Paper](https://img.shields.io/badge/paper-NeurIPS-ML4Audio)](https://mlforaudioworkshop.com/CreativeTextToAudio.pdf)
 [![Website](https://img.shields.io/badge/website-ctag.media.mit.edu)](https://ctag.media.mit.edu/)
 
 <a href="https://github.com/PapayaResearch/ctag/blob/main/media/logo.png"><img src="https://github.com/PapayaResearch/ctag/blob/main/media/logo.png?raw=true" width="200" align="right" /></a>

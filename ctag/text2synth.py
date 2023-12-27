@@ -343,7 +343,8 @@ def make_sound_from_text(
     """Synthesize sound from text and calculate the similarity with the prompt.
 
     Args:
-        synth_params_repaired (torch.Tensor): Synthesis parameters (batch_size, num_params).
+        synth_params_repaired (flax.core.frozen_dict.FrozenDict): Synthesizer parameters.
+        synth_apply: Callable: The (potentially JIT compiled) synthesis function.
         synth (BaseSynth): Synthesizer (subclass of AbstractSynth).
         prompt (torch.Tensor): Prompt (as embedding vector).
         model (BaseModel): Model to embed audio (currently should be CLAPModule or ImageBindModel).

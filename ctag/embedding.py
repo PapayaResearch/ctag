@@ -1,4 +1,4 @@
-# Copyright (c) 2023
+# Copyright (c) 2024
 # Manuel Cherep <mcherep@mit.edu>
 # Nikhil Singh <nsingh1@mit.edu>
 

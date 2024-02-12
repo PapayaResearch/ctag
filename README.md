@@ -16,8 +16,9 @@ You can hear many examples on the [website](https://ctag.media.mit.edu/). The co
 You can create the environment as follows
 
 ```bash
-conda env create -f environment.yml
+conda create -n ctag python=3.9
 conda activate ctag
+pip install -r requirements.txt
 ```
 
 By default, we install JAX for CPU. You can find more details in the [JAX documentation](https://github.com/google/jax#installation) on using JAX with your accelerators.
@@ -31,11 +32,11 @@ mkdir -p ctag/checkpoints && wget -i checkpoints.txt -P ctag/checkpoints
 ```
 
 ## `ctag/`
-Generating sounds is very simple! By default, `ctag` runs on CPU, but you can change that with a config value
+Generating sounds is very simple! By default, `ctag` runs on CPU with a lower population size, but you can change that with config values
 
 ```bash
 cd ctag
-python text2synth.py system.device=cuda
+python text2synth.py system.device=cuda general.popsize=100
 ```
 
 It will generate directories containing logs, results, and experiments. The final version of each sound can be found in `experiments`, and `results` contains all the iterations.
@@ -87,7 +88,7 @@ For the synthesizer component itself, please cite [SynthAX](https://github.com/P
 ```bibtex
 @conference{cherep2023synthax,
   title = {SynthAX: A Fast Modular Synthesizer in JAX},
-  author = {Cherep, Manuel and Singh, Nikhil},
+  author = {Cherep*, Manuel and Singh*, Nikhil},
   booktitle = {Audio Engineering Society Convention 155},
   month = {May},
   year = {2023},

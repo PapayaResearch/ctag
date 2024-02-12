@@ -1,4 +1,4 @@
-# Copyright (c) 2023
+# Copyright (c) 2024
 # Manuel Cherep <mcherep@mit.edu>
 # Nikhil Singh <nsingh1@mit.edu>
 
@@ -46,7 +46,6 @@ from config import Config
 from utils.random import PRNGKey
 from utils.hparam import get_hparamdict
 from utils.misc import load_prompts, print_config
-from typing import Callable
 
 
 config_store = hydra.core.config_store.ConfigStore.instance()
@@ -191,15 +190,17 @@ def main(cfg: Config) -> None:
                 ##############################################
                 # Synthesize sound and evaluate the similarity
                 ##############################################
-                synth_params_repaired = reshape(synth_params_array)
+                synth_params_reshape = reshape(synth_params_array)
 
-                fitness = make_sound_from_text(
-                    synth_params_repaired,
+                fitness = evaluate(
+                    synth_params_reshape,
                     synth_apply=synth_apply,
                     synth=synth,
                     prompt=text_embeddings[i],
                     model=model
                 )
+                # Make sure CLAP score is in [0, 1] since it gets out of bounds sometimes
+                fitness = jnp.where((fitness < -1) | (fitness > 0), 0, fitness)
 
                 state = strategy.tell(synth_params_array, fitness, state, es_params)
 
@@ -216,7 +217,7 @@ def main(cfg: Config) -> None:
                     )
 
                 ##############################################
-                # Produce audio for best and center parameters
+                # Produce audio for best parameters
                 ##############################################
                 best_member_params = reshape(
                     jnp.expand_dims(
@@ -225,20 +226,6 @@ def main(cfg: Config) -> None:
                     )
                 )
                 audio_best = test_synth_apply(best_member_params)
-
-                center_member = state.mean[
-                    jnp.linalg.norm(
-                        state.mean - state.mean.mean(axis=0),
-                        axis=1
-                    ).argmin()
-                ]
-                center_member_params = reshape(
-                    jnp.expand_dims(
-                        center_member,
-                        axis=0
-                    )
-                )
-                audio_center = test_synth_apply(center_member_params)
 
                 ##############################################
                 # Log audio and synthesis parameters
@@ -250,15 +237,8 @@ def main(cfg: Config) -> None:
                         audio_best,
                         results_dir,
                         t,
-                        kind="best"
-                    )
-                    logger.log(
-                        test_synth,
-                        center_member_params,
-                        audio_center,
-                        results_dir,
-                        t,
-                        kind="center"
+                        kind="best",
+                        samplerate=int(synth.sample_rate)
                     )
 
                 ##############################################
@@ -269,12 +249,6 @@ def main(cfg: Config) -> None:
                         writer.add_audio(
                             "audio/best",
                             np.asarray(audio_best.squeeze()),
-                            global_step=t,
-                            sample_rate=int(synth.sample_rate),
-                        )
-                        writer.add_audio(
-                            "audio/center",
-                            np.asarray(audio_center.squeeze()),
                             global_step=t,
                             sample_rate=int(synth.sample_rate),
                         )
@@ -333,9 +307,9 @@ def main(cfg: Config) -> None:
 
 
 @torch.inference_mode()
-def make_sound_from_text(
-        synth_params_repaired: flax.core.frozen_dict.FrozenDict,
-        synth_apply: Callable,
+def evaluate(
+        synth_params: flax.core.frozen_dict.FrozenDict,
+        synth_apply: flax.linen.apply,
         synth: BaseSynth,
         prompt: torch.Tensor,
         model: BaseModel
@@ -343,14 +317,14 @@ def make_sound_from_text(
     """Synthesize sound from text and calculate the similarity with the prompt.
 
     Args:
-        synth_params_repaired (flax.core.frozen_dict.FrozenDict): Synthesizer parameters.
-        synth_apply: Callable: The (potentially JIT compiled) synthesis function.
+        synth_params (flax.core.frozen_dict.FrozenDict): Synthesizer parameters.
+        synth_apply (flax.linen.apply): The (potentially JIT compiled) synthesis function.
         synth (BaseSynth): Synthesizer (subclass of AbstractSynth).
         prompt (torch.Tensor): Prompt (as embedding vector).
         model (BaseModel): Model to embed audio (currently should be CLAPModule or ImageBindModel).
     """
     # Generate audio for each
-    audios = synth_apply(synth_params_repaired)
+    audios = synth_apply(synth_params)
     audios_torch = torch.from_numpy(np.asarray(audios)).to(model.device)
 
     # Calculate all audio embeddings

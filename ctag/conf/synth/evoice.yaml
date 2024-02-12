@@ -1,0 +1,4 @@
+name: evoice
+synth:
+    _target_: synthax.synth.VoiceExpanded
+    config: ${synthconfig.config}

@@ -1,0 +1,75 @@
+# @package _global_
+hydra:
+  sweeper:
+    ax_config:
+      max_trials: 10
+      params:
+        strategy.algorithm.popsize:
+          type: range
+          bounds: [10, 100]
+        strategy.algorithm.elite_ratio:
+          type: range
+          bounds: [0.0, 1.0]
+        strategy.algorithm.mean_decay:
+          type: range
+          bounds: [0.0, 1.0]
+        # strategy.evoparams.eta_sigma:
+        #   type: range
+        #   bounds: [0.0, 1.0]
+        # strategy.evoparams.eta_shift:
+        #   type: range
+        #   bounds: [0.0, 1.0]
+        strategy.evoparams.eta_avs_inc:
+          type: range
+          bounds: [0.0, 1.0]
+        strategy.evoparams.eta_avs_dec:
+          type: range
+          bounds: [0.0, 1.0]
+        strategy.evoparams.nis_max_gens:
+          type: range
+          bounds: [0.0, 1.0]
+        strategy.evoparams.delta_ams:
+          type: range
+          bounds: [0.0, 1.0]
+        strategy.evoparams.theta_sdr:
+          type: range
+          bounds: [0.0, 1.0]
+        strategy.evoparams.c_mult_init:
+          type: range
+          bounds: [0.0, 1.0]
+        strategy.evoparams.sigma_init:
+          type: range
+          bounds: [0.0, 1.0]
+        strategy.evoparams.sigma_decay:
+          type: range
+          bounds: [0.0, 1.0]
+        strategy.evoparams.sigma_limit:
+          type: range
+          bounds: [0.0, 1.0]
+
+strategy:
+  name: Full_iAMaLGaM
+  algorithm:
+    _target_: evosax.strategies.Full_iAMaLGaM
+    popsize: ${general.popsize}
+    num_dims: null
+    pholder_params: null
+    elite_ratio: 0.35
+    mean_decay: 0.0
+    n_devices: null
+  evoparams:
+    # eta_sigma: float
+    # eta_shift: float
+    eta_avs_inc: 1.111
+    eta_avs_dec: 0.9
+    nis_max_gens: 50
+    delta_ams: 2.0
+    theta_sdr: 1.0
+    c_mult_init: 1.0
+    sigma_init: 0.1
+    sigma_decay: 0.999
+    sigma_limit: 0.0
+    init_min: 0.0
+    init_max: 1.0
+    clip_min: 0.0
+    clip_max: 1.0

@@ -1,0 +1,39 @@
+# @package _global_
+hydra:
+  sweeper:
+    ax_config:
+      max_trials: 10
+      params:
+        strategy.algorithm.popsize:
+          type: range
+          bounds: [10, 100]
+        strategy.algorithm.elite_ratio:
+          type: range
+          bounds: [0.0, 1.0]
+        strategy.algorithm.sigma_ratio:
+          type: range
+          bounds: [0.0, 1.0]
+        strategy.evoparams.sigma_init:
+          type: range
+          bounds: [0.0, 1.0]
+        strategy.evoparams.sigma_meta:
+          type: range
+          bounds: [0.0, 1.0]
+
+strategy:
+  name: GESMR_GA
+  algorithm:
+    _target_: evosax.strategies.GESMR_GA
+    popsize: ${general.popsize}
+    num_dims: null
+    pholder_params: null
+    elite_ratio: 0.5
+    sigma_ratio: 0.5
+    n_devices: null
+  evoparams:
+    sigma_init: 0.07
+    sigma_meta: 2.0
+    init_min: 0.0
+    init_max: 1.0
+    clip_min: 0.0
+    clip_max: 1.0

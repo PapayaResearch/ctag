@@ -1,0 +1,31 @@
+# @package _global_
+hydra:
+  sweeper:
+    ax_config:
+      max_trials: 10
+      params:
+        strategy.algorithm.popsize:
+          type: range
+          bounds: [10, 100]
+        strategy.algorithm.elite_ratio:
+          type: range
+          bounds: [0.0, 1.0]
+        strategy.algorithm.sigma_init:
+          type: range
+          bounds: [0.0, 1.0]
+        strategy.algorithm.mean_decay:
+          type: range
+          bounds: [0.0, 1.0]
+
+strategy:
+  name: IPOP_CMA_ES
+  algorithm:
+    _target_: evosax.strategies.IPOP_CMA_ES
+    popsize: ${general.popsize}
+    num_dims: null
+    pholder_params: null
+    elite_ratio: 0.35
+    sigma_init: 1.0
+    mean_decay: 0.0
+    n_devices: null
+  evoparams:

@@ -2,7 +2,7 @@
 hydra:
   sweeper:
     ax_config:
-      max_trials: 10
+      max_trials: 50
       params:
         strategy.algorithm.popsize:
           type: range

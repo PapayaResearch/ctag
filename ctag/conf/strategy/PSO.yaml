@@ -2,7 +2,7 @@
 hydra:
   sweeper:
     ax_config:
-      max_trials: 10
+      max_trials: 50
       params:
         strategy.algorithm.popsize:
           type: range
@@ -26,9 +26,9 @@ strategy:
     pholder_params: null
     n_devices: null
   evoparams:
-    inertia_coeff: 0.75
-    cognitive_coeff: 1.5
-    social_coeff: 2.0
+    inertia_coeff: 1.0
+    cognitive_coeff: 0.9263020689534016
+    social_coeff: 0.46691079125351337
     init_min: 0.0
     init_max: 1.0
     clip_min: 0.0

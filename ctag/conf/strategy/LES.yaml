@@ -2,7 +2,7 @@
 hydra:
   sweeper:
     ax_config:
-      max_trials: 10
+      max_trials: 50
       params:
         strategy.algorithm.popsize:
           type: range
@@ -19,14 +19,14 @@ strategy:
   algorithm:
     _target_: evosax.strategies.LES
     popsize: ${general.popsize}
-    num_dims: 100 # Default is null but it is required
+    num_dims: null
     pholder_params: null
     net_params: null
     net_ckpt_path: null
     mean_decay: 0.0
     n_devices: null
   evoparams:
-    sigma_init: 0.1
+    sigma_init: 0.2693048095331496
     init_min: 0.0
     init_max: 1.0
     clip_min: 0.0

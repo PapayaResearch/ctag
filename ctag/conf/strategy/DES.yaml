@@ -33,10 +33,10 @@ strategy:
     mean_decay: 0.0
     n_devices: null
   evoparams:
-    temperature: 11.47
-    lrate_sigma: 0.14
-    lrate_mean: 0.75
-    sigma_init: 0.18
+    temperature: 17.36977130095967
+    lrate_sigma: 0.16626024937012424
+    lrate_mean: 0.48286450138170195
+    sigma_init: 0.3315883128708481
     init_min: 0.0
     init_max: 1.0
     clip_min: 0.0

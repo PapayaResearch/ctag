@@ -2,7 +2,7 @@
 hydra:
   sweeper:
     ax_config:
-      max_trials: 10
+      max_trials: 50
       params:
         strategy.algorithm.popsize:
           type: range
@@ -24,13 +24,13 @@ strategy:
     popsize: ${general.popsize}
     num_dims: null
     pholder_params: null
-    elite_ratio: 1.0
+    elite_ratio: 0.47265768330544233
     net_params: null
     net_ckpt_path: null
     n_devices: null
   evoparams:
-    cross_over_rate: 0.0
-    sigma_init: 1.0
+    cross_over_rate: 0.7413635365664959
+    sigma_init: 0.012198401615023613
     init_min: 0.0
     init_max: 1.0
     clip_min: 0.0

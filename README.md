@@ -76,11 +76,12 @@ python text2synth.py --multirun
 
 If you use `ctag` in your research, please cite the following paper:
 ```bibtex
-@article{ctag2023,
+@inproceedings{cherep2024creative,
   title={Creative Text-to-Audio Generation via Synthesizer Programming},
-  author={Singh*, Nikhil and Cherep*, Manuel and Shand, Jessica},
-  journal={NeurIPS Machine Learning for Audio Workshop},
-  year={2023}
+  author={Cherep*, Manuel and Singh*, Nikhil and Shand, Jessica},
+  booktitle={International Conference on Machine Learning},
+  year={2024},
+  organization={PMLR}
 }
 ```
 

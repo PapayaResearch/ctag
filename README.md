@@ -7,7 +7,7 @@
 ![GitHub license](https://img.shields.io/github/license/PapayaResearch/ctag)
 [![Website](https://img.shields.io/badge/website-CTAG-red)](https://ctag.media.mit.edu/)
 
-Code for the paper **[Creative Text-to-Audio Generation via Synthesizer Programming](https://mlforaudioworkshop.com/CreativeTextToAudio.pdf)**. CTAG is a method for generating sounds from text prompts by using a virtual modular synthesizer. CTAG depends on [SynthAX](https://github.com/PapayaResearch/synthax), a fast modular synthesizer in JAX.
+Code for the **ICML 2024** paper **[Creative Text-to-Audio Generation via Synthesizer Programming](https://arxiv.org/abs/2406.00294)**. CTAG is a method for generating sounds from text prompts by using a virtual modular synthesizer. CTAG depends on [SynthAX](https://github.com/PapayaResearch/synthax), a fast modular synthesizer in JAX.
 
 You can hear many examples on the [website](https://ctag.media.mit.edu/). The code to obtain the results from the paper will be found in a different [repository](https://github.com/PapayaResearch/ctag-experiments) (coming soon).
 
@@ -78,10 +78,9 @@ If you use `ctag` in your research, please cite the following paper:
 ```bibtex
 @inproceedings{cherep2024creative,
   title={Creative Text-to-Audio Generation via Synthesizer Programming},
-  author={Cherep*, Manuel and Singh*, Nikhil and Shand, Jessica},
-  booktitle={International Conference on Machine Learning},
-  year={2024},
-  organization={PMLR}
+  author={Cherep, Manuel and Singh, Nikhil and Shand, Jessica},
+  booktitle={Forty-first International Conference on Machine Learning},
+  year={2024}
 }
 ```
 
